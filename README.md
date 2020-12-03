@@ -1,2 +1,2 @@
 # RocketReserver
-Sample app on using GraphQL 
+Sample app on using GraphQL purely programmatically.
