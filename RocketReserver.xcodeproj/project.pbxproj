@@ -18,6 +18,8 @@
 		4CD54C7B255EFE48009DFB1C /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD54C7A255EFE48009DFB1C /* MasterViewController.swift */; };
 		4CD54C7F255F5CB3009DFB1C /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 4CD54C7E255F5CB3009DFB1C /* SDWebImage */; };
 		4CD54C81255F5CB3009DFB1C /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4CD54C80255F5CB3009DFB1C /* SDWebImageMapKit */; };
+		4CF9BFC325795090006AB53D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF9BFC225795090006AB53D /* DetailViewController.swift */; };
+		4CF9BFC72579517C006AB53D /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF9BFC62579517C006AB53D /* UIImage+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		4CD54C75255EFCBE009DFB1C /* schema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		4CD54C77255EFD0B009DFB1C /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		4CD54C7A255EFE48009DFB1C /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		4CF9BFC225795090006AB53D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		4CF9BFC62579517C006AB53D /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +56,7 @@
 		4CD54C3E255EE85B009DFB1C = {
 			isa = PBXGroup;
 			children = (
+				4CF9BFC52579515E006AB53D /* Utilities */,
 				4CD54C49255EE85B009DFB1C /* RocketReserver */,
 				4CD54C48255EE85B009DFB1C /* Products */,
 			);
@@ -70,6 +75,7 @@
 			children = (
 				4CD54C4A255EE85B009DFB1C /* AppDelegate.swift */,
 				4CD54C7A255EFE48009DFB1C /* MasterViewController.swift */,
+				4CF9BFC225795090006AB53D /* DetailViewController.swift */,
 				4CD54C4E255EE85B009DFB1C /* ViewController.swift */,
 				4CD54C77255EFD0B009DFB1C /* Network.swift */,
 				4CD54C70255EF0E6009DFB1C /* API.swift */,
@@ -80,6 +86,14 @@
 				4C7D91412578BBDB00A03129 /* Assets.xcassets */,
 			);
 			path = RocketReserver;
+			sourceTree = "<group>";
+		};
+		4CF9BFC52579515E006AB53D /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				4CF9BFC62579517C006AB53D /* UIImage+Extensions.swift */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,8 +198,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CD54C7B255EFE48009DFB1C /* MasterViewController.swift in Sources */,
+				4CF9BFC72579517C006AB53D /* UIImage+Extensions.swift in Sources */,
 				4CD54C4F255EE85B009DFB1C /* ViewController.swift in Sources */,
 				4CD54C71255EF0E6009DFB1C /* API.swift in Sources */,
+				4CF9BFC325795090006AB53D /* DetailViewController.swift in Sources */,
 				4CD54C78255EFD0B009DFB1C /* Network.swift in Sources */,
 				4CD54C4B255EE85B009DFB1C /* AppDelegate.swift in Sources */,
 			);

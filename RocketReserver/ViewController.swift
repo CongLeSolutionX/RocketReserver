@@ -20,7 +20,7 @@ class ViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.title = "Detail View Controller" // or 
+    title = "View Controller" // or
     //self.navigationController?.navigationBar.topItem?.title = "View Controller"
     tableView.dataSource = self
     

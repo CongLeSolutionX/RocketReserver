@@ -21,16 +21,16 @@ class MasterViewController: UIViewController {
     super.loadView()
     view.backgroundColor = .yellow
     setupTableView()
- 
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
     self.navigationController?.navigationBar.topItem?.title = "Master View Controller - Table"
-    // Make the network call to GraphQL
     
     tableView.dataSource = self
     tableView.delegate = self
+    
+    // Make the network call to GraphQL
     loadLaunches()
   }
 }
@@ -54,9 +54,13 @@ extension MasterViewController {
 
 extension MasterViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//    let item = launches[indexPath.row]
-    let detailVC = ViewController()
-    navigationController?.pushViewController(detailVC, animated: true)
+    //    let item = launches[indexPath.row]
+    let detailVC = DetailViewController()
+    /// Reference: https://www.swiftbysundell.com/tips/showing-view-controllers
+    /// not prefer to use push
+    //navigationController?.pushViewController(detailVC, animated: true)
+    /// prefer using show view controller
+    show(detailVC, sender: self)
   }
 }
 // MARK: - UITableViewDataSource
@@ -70,7 +74,7 @@ extension MasterViewController: UITableViewDataSource {
       assertionFailure("Invalid section")
       return 0
     }
-
+    
     switch listSection {
     case .launches:
       return self.launches.count
@@ -79,22 +83,22 @@ extension MasterViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell =  tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-
+    
     cell.imageView?.image = nil
     cell.textLabel?.text = nil
     cell.detailTextLabel?.text = nil
-
+    
     guard let listSection = ListSection(rawValue: indexPath.section) else {
       assertionFailure("Invalid section")
       return cell
     }
-
+    
     switch listSection {
     case .launches:
       let launch = self.launches[indexPath.row]
       cell.textLabel?.text = launch.mission?.name
       cell.detailTextLabel?.text = launch.site
-
+      
       let placeHolder = UIImage.safetyUnwrap(withName: "placeholder")
       
       if let missionPatch = launch.mission?.missionPatch {
@@ -150,18 +154,5 @@ extension MasterViewController {
           self.showErrorAlert(title: "Network Error", message: error.localizedDescription)
         }
       }
-  }
-}
-
-// MARK: - Utils
-extension UIImage {
-  /// Safely unwrap image with error handling
-  static func safetyUnwrap(withName name: String) -> UIImage {
-    guard let correctImage = UIImage(named: name) else {
-      assertionFailure("Fail to initialized \(UIImage.self) named \(name).")
-      // return an empty image as a placeholder
-      return UIImage()
-    }
-    return correctImage
   }
 }
