@@ -1,0 +1,167 @@
+//
+//  MasterViewController.swift
+//  RocketReserver
+//
+//  Created by Cong Le on 11/13/20.
+//
+
+import UIKit
+import Apollo
+import SDWebImage
+
+class MasterViewController: UIViewController {
+  let tableView = UITableView()
+  
+  var launches = [LaunchListQuery.Data.Launch.Launch]()
+  enum ListSection: Int, CaseIterable {
+    case launches
+  }
+  
+  override func loadView() {
+    super.loadView()
+    view.backgroundColor = .yellow
+    setupTableView()
+ 
+  }
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    self.navigationController?.navigationBar.topItem?.title = "Master View Controller - Table"
+    // Make the network call to GraphQL
+    
+    tableView.dataSource = self
+    tableView.delegate = self
+    loadLaunches()
+  }
+}
+// MARK: - setupTableView
+extension MasterViewController {
+  func setupTableView() {
+    view.addSubview(tableView)
+    tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+    tableView.translatesAutoresizingMaskIntoConstraints = false
+    
+    NSLayoutConstraint.activate(
+      [
+        tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+        tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
+      ]
+    )
+  }
+}
+
+extension MasterViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//    let item = launches[indexPath.row]
+    let detailVC = ViewController()
+    navigationController?.pushViewController(detailVC, animated: true)
+  }
+}
+// MARK: - UITableViewDataSource
+extension MasterViewController: UITableViewDataSource {
+  func numberOfSections(in tableView: UITableView) -> Int {
+    return  ListSection.allCases.count
+  }
+  
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    guard let listSection = ListSection(rawValue: section) else {
+      assertionFailure("Invalid section")
+      return 0
+    }
+
+    switch listSection {
+    case .launches:
+      return self.launches.count
+    }
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell =  tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+
+    cell.imageView?.image = nil
+    cell.textLabel?.text = nil
+    cell.detailTextLabel?.text = nil
+
+    guard let listSection = ListSection(rawValue: indexPath.section) else {
+      assertionFailure("Invalid section")
+      return cell
+    }
+
+    switch listSection {
+    case .launches:
+      let launch = self.launches[indexPath.row]
+      cell.textLabel?.text = launch.mission?.name
+      cell.detailTextLabel?.text = launch.site
+
+      let placeHolder = UIImage.safetyUnwrap(withName: "placeholder")
+      
+      if let missionPatch = launch.mission?.missionPatch {
+        if let imageUrlString = URL(string: missionPatch) {
+          cell.imageView?.sd_setImage(with: imageUrlString, placeholderImage: placeHolder)
+        }
+      } else {
+        cell.imageView?.image = placeHolder
+      }
+    }
+    return cell
+  }
+}
+
+// MARK: - Helpers
+extension MasterViewController {
+  private func showErrorAlert(title: String, message: String) {
+    let alert = UIAlertController(title: title,
+                                  message: message,
+                                  preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: "OK", style: .default))
+    self.present(alert, animated: true)
+  }
+  
+  private func loadLaunches() {
+    Network.shared.apollo
+      .fetch(query: LaunchListQuery()) { [weak self] result in
+        
+        guard let self = self else { return }
+        
+        defer {
+          self.tableView.reloadData()
+        }
+        
+        switch result {
+        case .success(let graphQLResult):
+          // Get the data result from GraphQL
+          if let launchConnection = graphQLResult.data?.launches {
+            self.launches.append(contentsOf: launchConnection.launches.compactMap { $0 })
+          }
+          
+          // Get the errors received from GraphQL and pop up alert message
+          if let errors = graphQLResult.errors {
+            let message = errors
+              .map { $0.localizedDescription}
+              .joined(separator: "\n")
+            self.showErrorAlert(
+              title: "GraphQL Error(s)",
+              message: message
+            )
+          }
+        case .failure(let error):
+          self.showErrorAlert(title: "Network Error", message: error.localizedDescription)
+        }
+      }
+  }
+}
+
+// MARK: - Utils
+extension UIImage {
+  /// Safely unwrap image with error handling
+  static func safetyUnwrap(withName name: String) -> UIImage {
+    guard let correctImage = UIImage(named: name) else {
+      assertionFailure("Fail to initialized \(UIImage.self) named \(name).")
+      // return an empty image as a placeholder
+      return UIImage()
+    }
+    return correctImage
+  }
+}
