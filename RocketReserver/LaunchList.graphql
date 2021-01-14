@@ -1,7 +1,3 @@
-"""
-We will use this playground for GraphQL
-https://apollo-fullstack-tutorial.herokuapp.com/
-"""
 query LaunchList($cursor: String) {
 			launches(after: $cursor) {
 				__typename

@@ -25,19 +25,16 @@ class MasterViewController: UIViewController {
   
   override func loadView() {
     super.loadView()
-    view.backgroundColor = .yellow
+    navigationController?.navigationBar.topItem?.title = "Master View Controller - Table"
+    tableView.dataSource = self
+    tableView.delegate = self
     setupTableView()
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.navigationController?.navigationBar.topItem?.title = "Master View Controller - Table"
-    
-    tableView.dataSource = self
-    tableView.delegate = self
-    
     // Make the network call to GraphQL
-    loadMoreeLaunchesIfTheyExist()
+    loadMoreLaunchesIfTheyExist()
   }
 }
 // MARK: - setupTableView
@@ -61,7 +58,7 @@ extension MasterViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
     guard let listSection = ListSection(rawValue: indexPath.section) else {
-      assertionFailure("Invalid section")
+      print("Failed to select table row")
       return
     }
     switch listSection {
@@ -86,7 +83,7 @@ extension MasterViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     guard let listSection = ListSection(rawValue: section) else {
-      assertionFailure("Invalid section")
+      print("Failed to get number of rows in section")
       return 0
     }
     
@@ -104,7 +101,7 @@ extension MasterViewController: UITableViewDataSource {
     cell.detailTextLabel?.text = nil
     
     guard let listSection = ListSection(rawValue: indexPath.section) else {
-      assertionFailure("Invalid section")
+      print("Failed to get configure the table cell")
       return cell
     }
     
@@ -171,7 +168,7 @@ extension MasterViewController {
       }
   }
   
-  private func loadMoreeLaunchesIfTheyExist() {
+  private func loadMoreLaunchesIfTheyExist() {
     guard let connection = self.lastConnection else {
       // We dont have stored launch details, load from scratch
       self.loadMoreLaunches(from: nil)
