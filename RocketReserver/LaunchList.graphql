@@ -1,17 +1,21 @@
+"""
+We will use this playground for GraphQL
+https://apollo-fullstack-tutorial.herokuapp.com/
+"""
 query LaunchList($cursor: String) {
-      launches(after: $cursor) {
-        __typename
-        hasMore
-        cursor
-        launches {
-          __typename
-          id
-          site
-          mission {
-            __typename
-            name
-            missionPatch(size: SMALL)
-          }
-        }
-      }
-    }
+			launches(after: $cursor) {
+				__typename
+				hasMore
+				cursor
+				launches {
+					__typename
+					id
+					site
+					mission {
+						__typename
+						name
+						missionPatch(size: SMALL)
+					}
+				}
+			}
+		}

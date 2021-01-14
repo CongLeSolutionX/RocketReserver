@@ -1,6 +1,22 @@
+"""
+Use following documentation make GraphQL syntax highlited:
+https://github.com/apollographql/xcode-graphql
+Notes:
+- In Swift, if you don't annotate a property's type with either a question mark or an exclamation point, that property is non-nullable.
+- In GraphQL, if you don't annotate a field's type with an exclamation point, that field is considered nullable. This is because GraphQL fields are nullable by default.
+"""
 query LaunchDetails($id:ID!) {
-  launch(id:$id) {
-    id
-  }
+	launch(id:$id) {
+		id
+		site
+		mission {
+			name
+			missionPatch(size: LARGE)
+		}
+		rocket {
+			name
+			type
+		}
+		isBooked
+	}
 }
-
