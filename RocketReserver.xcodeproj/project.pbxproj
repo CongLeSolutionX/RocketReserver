@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C4F12A525B0493300D7BD40 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4F12A425B0493300D7BD40 /* UIViewController+Extensions.swift */; };
 		4C7D91422578BBDB00A03129 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C7D91412578BBDB00A03129 /* Assets.xcassets */; };
 		4CC3C9FC25A5B00C008A8268 /* LaunchDetails.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 4CC3C9FB25A5B00C008A8268 /* LaunchDetails.graphql */; };
 		4CD54C4B255EE85B009DFB1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD54C4A255EE85B009DFB1C /* AppDelegate.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C4F12A425B0493300D7BD40 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		4C7D91412578BBDB00A03129 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4CC3C9FB25A5B00C008A8268 /* LaunchDetails.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = LaunchDetails.graphql; sourceTree = "<group>"; };
 		4CD54C47255EE85B009DFB1C /* RocketReserver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RocketReserver.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				4CF9BFC62579517C006AB53D /* UIImage+Extensions.swift */,
+				4C4F12A425B0493300D7BD40 /* UIViewController+Extensions.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -192,7 +195,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Go to the build root and search up the chain to find the Derived Data Path where the source packages are checked out.\nDERIVED_DATA_CANDIDATE=\"${BUILD_ROOT}\"\n\nwhile ! [ -d \"${DERIVED_DATA_CANDIDATE}/SourcePackages\" ]; do\n  if [ \"${DERIVED_DATA_CANDIDATE}\" = / ]; then\n    echo >&2 \"error: Unable to locate SourcePackages directory from BUILD_ROOT: '${BUILD_ROOT}'\"\n    exit 1\n  fi\n\n  DERIVED_DATA_CANDIDATE=\"$(dirname \"${DERIVED_DATA_CANDIDATE}\")\"\ndone\n\n# Grab a reference to the directory where scripts are checked out\nSCRIPT_PATH=\"${DERIVED_DATA_CANDIDATE}/SourcePackages/checkouts/apollo-ios/scripts\"\n\nif [ -z \"${SCRIPT_PATH}\" ]; then\n    echo >&2 \"error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project.\"\n    exit 1\nfi\n\ncd \"${SRCROOT}/${TARGET_NAME}\"\n \"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"schema.json\" API.swift\n# \"${SCRIPT_PATH}\"/run-bundled-codegen.sh schema:download --endpoint=\"https://apollo-fullstack-tutorial.herokuapp.com/\"\n";
+			shellScript = "# Go to the build root and search up the chain to find the Derived Data Path where the source packages are checked out.\nDERIVED_DATA_CANDIDATE=\"${BUILD_ROOT}\"\n\nwhile ! [ -d \"${DERIVED_DATA_CANDIDATE}/SourcePackages\" ]; do\n  if [ \"${DERIVED_DATA_CANDIDATE}\" = / ]; then\n    echo >&2 \"error: Unable to locate SourcePackages directory from BUILD_ROOT: '${BUILD_ROOT}'\"\n    exit 1\n  fi\n\n  DERIVED_DATA_CANDIDATE=\"$(dirname \"${DERIVED_DATA_CANDIDATE}\")\"\ndone\n\n# Grab a reference to the directory where scripts are checked out\nSCRIPT_PATH=\"${DERIVED_DATA_CANDIDATE}/SourcePackages/checkouts/apollo-ios/scripts\"\n\nif [ -z \"${SCRIPT_PATH}\" ]; then\n    echo >&2 \"error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project.\"\n    exit 1\nfi\n\ncd \"${SRCROOT}/${TARGET_NAME}\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"schema.json\" API.swift\n#\"${SCRIPT_PATH}\"/run-bundled-codegen.sh schema:download --endpoint=\"https://n1kqy.sse.codesandbox.io/\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -205,6 +208,7 @@
 				4CF9BFC72579517C006AB53D /* UIImage+Extensions.swift in Sources */,
 				4CD54C4F255EE85B009DFB1C /* ViewController.swift in Sources */,
 				4CD54C71255EF0E6009DFB1C /* API.swift in Sources */,
+				4C4F12A525B0493300D7BD40 /* UIViewController+Extensions.swift in Sources */,
 				4CF9BFC325795090006AB53D /* DetailViewController.swift in Sources */,
 				4CD54C78255EFD0B009DFB1C /* Network.swift in Sources */,
 				4CD54C4B255EE85B009DFB1C /* AppDelegate.swift in Sources */,

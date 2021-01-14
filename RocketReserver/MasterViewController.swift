@@ -65,7 +65,7 @@ extension MasterViewController: UITableViewDelegate {
     case .launches:
       let detailVC = DetailViewController()
       let launch = launches[indexPath.row]
-      detailVC.launchID = launch.id
+      detailVC.launchId = launch.id
       
       /// Reference: https://www.swiftbysundell.com/tips/showing-view-controllers
       /// not prefer to use push
