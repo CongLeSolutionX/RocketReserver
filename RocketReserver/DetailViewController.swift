@@ -19,20 +19,28 @@ class DetailViewController: UIViewController {
   lazy var missionNameLabel: UILabel = {
     let label = UILabel()
     label.text = "Loading..."
+    label.adjustsFontSizeToFitWidth = true
+    label.numberOfLines = 1
+    label.lineBreakMode = .byClipping
+    label.font = .boldSystemFont(ofSize: 24)
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
   }()
   
   lazy var rocketNameLabel: UILabel = {
     let label = UILabel()
-    label.text = nil
+    label.adjustsFontSizeToFitWidth = true
+    label.adjustsFontForContentSizeCategory = true
+    label.font = .systemFont(ofSize: 20)
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
   }()
   
   lazy var launchSiteLabel: UILabel = {
     let label = UILabel()
-    label.text = nil
+    label.adjustsFontSizeToFitWidth = true
+    label.adjustsFontForContentSizeCategory = true
+    label.font = .systemFont(ofSize: 14)
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
   }()
@@ -81,14 +89,14 @@ class DetailViewController: UIViewController {
   }
 }
 
-// MARK: - setup views
+// MARK: - Setup views using graph data
 extension DetailViewController {
   func configureView() {
     view.addSubview(missionPatchImageView)
-    guard
-      let launch = launch else {
-      return
-    }
+    view.addSubview(missionNameLabel)
+    view.addSubview(rocketNameLabel)
+    view.addSubview(launchSiteLabel)
+    guard let launch = launch else { return }
     
     guard let missionPatch = launch.mission?.missionPatch else {
       print("Failed to parse the data from graph")
@@ -96,15 +104,44 @@ extension DetailViewController {
     }
     
     missionPatchImageView.sd_setImage(with: URL(string: missionPatch), placeholderImage: UIImage(named: "placeholder"))
+    
+    guard let missionName = launch.mission?.name else {
+      print("Failed to parse the data from graph")
+      return
+    }
+    missionNameLabel.text = missionName
+    title = missionName
+    
+    guard let rocketName = launch.rocket?.name else {
+      print("Failed to parse the data from graph")
+      return
+    }
+    guard let rocketType = launch.rocket?.type else { return }
+    rocketNameLabel.text = "🚀 \(rocketName) \(rocketType)"
+   
+    guard let launchSite = launch.site else { return }
+    launchSiteLabel.text = "Launching from \(launchSite)"
 
     NSLayoutConstraint.activate([
       missionPatchImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-      missionPatchImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-      missionPatchImageView.heightAnchor.constraint(equalToConstant: 128),
-      missionPatchImageView.widthAnchor.constraint(equalToConstant: 128)
+      missionPatchImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+      missionPatchImageView.heightAnchor.constraint(equalToConstant: 200),
+      missionPatchImageView.widthAnchor.constraint(equalToConstant: 200),
+      
+      missionNameLabel.topAnchor.constraint(equalTo: missionPatchImageView.bottomAnchor, constant: 10),
+      missionNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+      
+      rocketNameLabel.topAnchor.constraint(equalTo: missionNameLabel.bottomAnchor, constant: 10),
+      rocketNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+      
+      launchSiteLabel.topAnchor.constraint(equalTo: rocketNameLabel.bottomAnchor, constant: 10),
+      launchSiteLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
     ])
   }
-  
+}
+
+// MARK: - Load graph data
+extension DetailViewController {
   private func loadLaunchDetails(forceReload: Bool = false) {
     // update the user interface for the detail item
     let label = detailDescriptionLabel
@@ -143,13 +180,5 @@ extension DetailViewController {
         self.showAlert(title: "Network Error", message: error.localizedDescription)
       }
     }
-    
-    
-    view.addSubview(detailDescriptionLabel)
-    NSLayoutConstraint.activate([
-      detailDescriptionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      detailDescriptionLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-    ]
-    )
   }
 }
