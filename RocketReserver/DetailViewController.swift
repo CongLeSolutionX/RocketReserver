@@ -85,7 +85,11 @@ class DetailViewController: UIViewController {
   }
   
   @objc func bookTapped() {
-    print("I am here babe!")
+   // presenting login view controller
+    let loginVC = LoginViewController()
+    let navigationController = UINavigationController(rootViewController: loginVC)
+    navigationController.modalPresentationStyle = .fullScreen
+    present(navigationController, animated: true)
   }
 }
 

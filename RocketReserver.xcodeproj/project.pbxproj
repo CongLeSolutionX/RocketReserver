@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4C4F12A525B0493300D7BD40 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4F12A425B0493300D7BD40 /* UIViewController+Extensions.swift */; };
+		4C4F12C425B5E45600D7BD40 /* Login.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 4C4F12C325B5E45600D7BD40 /* Login.graphql */; };
+		4C4F12C725B5E51E00D7BD40 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4F12C625B5E51E00D7BD40 /* LoginViewController.swift */; };
 		4C7D91422578BBDB00A03129 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C7D91412578BBDB00A03129 /* Assets.xcassets */; };
 		4CC3C9FC25A5B00C008A8268 /* LaunchDetails.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 4CC3C9FB25A5B00C008A8268 /* LaunchDetails.graphql */; };
 		4CD54C4B255EE85B009DFB1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD54C4A255EE85B009DFB1C /* AppDelegate.swift */; };
@@ -26,6 +28,8 @@
 
 /* Begin PBXFileReference section */
 		4C4F12A425B0493300D7BD40 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		4C4F12C325B5E45600D7BD40 /* Login.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Login.graphql; sourceTree = "<group>"; };
+		4C4F12C625B5E51E00D7BD40 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4C7D91412578BBDB00A03129 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4CC3C9FB25A5B00C008A8268 /* LaunchDetails.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = LaunchDetails.graphql; sourceTree = "<group>"; };
 		4CD54C47255EE85B009DFB1C /* RocketReserver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RocketReserver.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,11 +84,13 @@
 				4CD54C4A255EE85B009DFB1C /* AppDelegate.swift */,
 				4CD54C7A255EFE48009DFB1C /* MasterViewController.swift */,
 				4CF9BFC225795090006AB53D /* DetailViewController.swift */,
+				4C4F12C625B5E51E00D7BD40 /* LoginViewController.swift */,
 				4CD54C4E255EE85B009DFB1C /* ViewController.swift */,
 				4CD54C77255EFD0B009DFB1C /* Network.swift */,
 				4CD54C70255EF0E6009DFB1C /* API.swift */,
 				4CD54C75255EFCBE009DFB1C /* schema.json */,
 				4CD54C6E255EEEE8009DFB1C /* LaunchList.graphql */,
+				4C4F12C325B5E45600D7BD40 /* Login.graphql */,
 				4CC3C9FB25A5B00C008A8268 /* LaunchDetails.graphql */,
 				4CD54C55255EE85C009DFB1C /* LaunchScreen.storyboard */,
 				4CD54C58255EE85C009DFB1C /* Info.plist */,
@@ -173,6 +179,7 @@
 				4C7D91422578BBDB00A03129 /* Assets.xcassets in Resources */,
 				4CD54C57255EE85C009DFB1C /* LaunchScreen.storyboard in Resources */,
 				4CC3C9FC25A5B00C008A8268 /* LaunchDetails.graphql in Resources */,
+				4C4F12C425B5E45600D7BD40 /* Login.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,6 +211,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C4F12C725B5E51E00D7BD40 /* LoginViewController.swift in Sources */,
 				4CD54C7B255EFE48009DFB1C /* MasterViewController.swift in Sources */,
 				4CF9BFC72579517C006AB53D /* UIImage+Extensions.swift in Sources */,
 				4CD54C4F255EE85B009DFB1C /* ViewController.swift in Sources */,
