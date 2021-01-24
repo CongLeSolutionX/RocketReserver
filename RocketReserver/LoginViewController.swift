@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import KeychainSwift
 
 class LoginViewController: UIViewController {
  
+  static let loginKeychainKey = "login"
+  
   lazy private var emailTextField: UITextField = {
     let text = UITextField()
     text.placeholder = "Enter your email..."
@@ -20,7 +23,6 @@ class LoginViewController: UIViewController {
   
   lazy private var errorLabel: UILabel = {
     let label = UILabel()
-    label.text = "Error"
     label.textColor = .red
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
@@ -28,7 +30,7 @@ class LoginViewController: UIViewController {
   
   lazy private var submitButton: UIButton = {
     let button = UIButton(type: .system)
-    button.addTarget(self, action: #selector(handleSubmitButton), for: .touchUpInside)
+    button.addTarget(self, action: #selector(submitTapped), for: .touchUpInside)
     button.translatesAutoresizingMaskIntoConstraints = false
     return button
   }()
@@ -96,7 +98,41 @@ extension LoginViewController {
     self.dismiss(animated: true)
   }
   
-  @objc func handleSubmitButton() {
-    print("printed")
+  @objc func submitTapped() {
+    errorLabel.text = nil
+    enableSubmitButton(false)
+    
+    guard let email = emailTextField.text else {
+      errorLabel.text = "Please enter an email address..."
+      enableSubmitButton(true)
+      return
+    }
+    
+    guard validate(email: email) else {
+      errorLabel.text = "Please enter a valid email."
+      enableSubmitButton(true)
+      return
+    }
+    
+    Network.shared.apollo.perform(mutation: LoginMutation(email: email)) {[weak self] result in
+      defer {
+        self?.enableSubmitButton(true)
+      }
+      
+      switch result {
+      case .success(let graphQLResult):
+        if let token = graphQLResult.data?.login {
+          let keychain = KeychainSwift()
+          keychain.set(token, forKey: LoginViewController.loginKeychainKey)
+          self?.dismiss(animated: true)
+        }
+        
+        if let errors = graphQLResult.errors {
+          print("Errors from GraphQl server are: \(errors)")
+        }
+      case .failure(let error):
+        print("Failed to login to GraphQL server with given email with error: \(error.localizedDescription)")
+      }
+    }
   }
 }
